@@ -1,14 +1,19 @@
 package main
 
 import (
-	"github.com/rahmanfadhil/gin-bookstore/controllers"
-	"github.com/rahmanfadhil/gin-bookstore/models"
+	"net/http"
 
+	"github.com/KshamaG/gin-bookstore/controllers"
+	"github.com/KshamaG/gin-bookstore/models"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	r := gin.Default()
+
+	r.GET("/hello", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"data": "hello world from bookstore"})
+	})
 
 	// Connect to database
 	models.ConnectDatabase()
@@ -21,5 +26,5 @@ func main() {
 	r.DELETE("/books/:id", controllers.DeleteBook)
 
 	// Run the server
-	r.Run()
+	r.Run(":8085")
 }
